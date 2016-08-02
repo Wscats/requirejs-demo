@@ -1,3 +1,12 @@
+**require.js加载js文件的好处**
+
+ 1. 可以防止JS加载时候阻塞页面渲染（JS运行时候DOM停止渲染的情况）
+ 2. 使用require.js调用的方式加载JS，不用在像以前那样多个`<script>`标签引入JS文件
+
+所有代码的目录结构如图
+![这里写图片描述](http://img.blog.csdn.net/20160802220949367)
+[代码存放的Github地址](https://github.com/Wscats/requirejs-demo)
+
 ## 传统的引入
 **start.html**
 ```
