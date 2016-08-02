@@ -1,0 +1,9 @@
+require.config({
+	paths:{
+		"jq":["http://wsa.wsscat.com/jquery","js/jquery"],
+		"a":"js/wsscat"
+	}
+})
+require(["jq","a"],function(){
+	$('span').css('color','#673AB7');
+});

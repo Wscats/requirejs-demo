@@ -1,6 +1,6 @@
 define(function(){
     function fun1(){
-      alert("it works");
+      alert("wsscat");
     }
 
     fun1();
