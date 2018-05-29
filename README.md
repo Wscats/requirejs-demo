@@ -9,7 +9,8 @@
 
 ## 传统的引入
 **start.html**
-```
+
+```html
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +25,8 @@
 传统方法引入可以看到会先弹出alert，内容被阻塞没有渲染
 
 **a.js**
-```
+
+```js
 function cat(){
    alert("hello");
 }
@@ -34,7 +36,8 @@ cat();
 
 ## require.js的引入
 **start.html**
-```
+
+```html
 <!DOCTYPE html>
 <html>
 	<head>
@@ -50,7 +53,8 @@ cat();
 ```
 
 **a.js**
-```
+
+```js
 define(function(){
     function cat(){
       alert("hello");
@@ -65,14 +69,15 @@ define(function(){
 
 要注意的是，require接受的是一个数组，它注入的依赖是一个数组，哪怕数组只有一个依赖，而它第二个参数则可以传入一个回调函数，就是党数组中的依赖都加载完毕后，执行这个回调函数，比如我们可以加载jQuery的依赖，然后再回调函数中调用jQuery的库
 
-```
+```js
 require(["js/a"]);
 ```
 ## config方法
 我们可以在上面代码上继续改进，可以用require.js的config方法，通过paths属性，就不用每次都写这么长的引入地址，有点像angular的服务注册，然后在控制器中注入相应的服务
 
 **base.js**
-```
+
+```js
 require.config({
 	paths:{
 		"jq":["http://wsa.wsscat.com/jquery","js/jquery"],
@@ -82,7 +87,8 @@ require.config({
 ```
 注意加载模块时不用写.js后缀，写了会报错
 我们可以把配置这样引入到主页里面
-```
+
+```html
 <script type="text/javascript" src="js/require.js"></script>
 <script type="text/javascript" src="js/base.js" ></script>
 ```
@@ -92,12 +98,12 @@ require.config({
 
 ##data-main
 我们还可以这样引入，在require引入的script标签中加入**data-main**属性，后面就不用在显式用`<script>`标签引入其他脚本文件了
-```
+```html
 <script type="text/javascript" data-main="js/base" src="js/require.js"></script>
 ```
 
 **base.js**
-```
+```js
 require.config({
 	baseUrl:'js',
 	paths:{
@@ -116,7 +122,7 @@ RequireJS的模块语法允许它尽快地加载多个模块，虽然加载的�
 
 上面我们可以把之前的代码改进成这样，用define采用AMD规范，把方法写进模块里面，并以对象传递出来
 **wsscat.js**
-```
+```js
 define(
 	function() {
 		function fun1() {
@@ -134,7 +140,7 @@ define(
 )
 ```
 **base.js**
-```
+```js
 require.config({
 	baseUrl: 'js',
 	paths: {
@@ -156,7 +162,7 @@ require(["jquery", "a"], function($, a) {
 我们就可以继续这样改，在define中加入一个数组，让我们想把需要的依赖给填充进去，记得回调函数里面需要把这个依赖也加进去形参里面
 **wsscat.js**
 
-```
+```js
 define(['wsscat2'],
 	function(wsscat2) {
 		function fun1() {
@@ -176,7 +182,7 @@ define(['wsscat2'],
 )
 ```
 **wsscat2.js**
-```
+```js
 define(
 	function() {
 		function fun1() {
@@ -199,7 +205,7 @@ define(
 ##shim(非AMD写法的兼容)导入单个变量
 当我们遇到非AMD兼容写法的时候，我们要可以用exports方法，注意的是export方法只能输出一个方法或者对象
 **base.js**
-```
+```js
 require.config({
 	//可以把下面共同指向js文件夹写在这个位置
 	baseUrl: 'js',
@@ -240,7 +246,7 @@ require(["jquery", "a", "c", "d"], function($, a, c, d) {
 ```
 wsscat3.js
 
-```
+```js
 function fun1() {
 	return "wsscat3.js's wsscat";
 }
@@ -255,7 +261,7 @@ var obj = {
 ```
 wsscat4
 
-```
+```js
 function fun4() {
 	return "wsscat4.js's wsscat";
 }
@@ -264,14 +270,14 @@ function fun4() {
 
 ##init(非AMD写法的兼容)导入多个变量
 
-```
+```js
 e: {
-				init: function() {
-					return {
-						fun5: fun5,
-						fun6: fun6
-					}
-				}
-			}
+	init: function() {
+		return {
+			fun5: fun5,
+			fun6: fun6
+		}
+	}
+}
 ```
 我们可以用init方法来导入多个变量，比shim属性导入单个零活，注意return里面的属性值是没有双引号的
