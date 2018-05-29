@@ -281,3 +281,55 @@ e: {
 }
 ```
 我们可以用init方法来导入多个变量，比shim属性导入单个零活，注意return里面的属性值是没有双引号的
+
+# require/text
+
+我们利用text插件为组件引入html和css
+
+使用npm下载`require/text`模块或者在github中下载[text.js](https://github.com/requirejs/text)文件
+
+```js
+npm install requirejs/text
+```
+
+然后在配置文件
+
+```js
+require.config({
+	baseUrl: 'js',
+	paths: {
+		text: ["text"],//<-添加这一个模块
+		jquery: ["jquery"],
+		bsheader: "../extends/bsheader/bsheader",
+		bsmain: "../extends/bsmain/bsmain",
+		bsfooter: "../extends/bsfooter/bsfooter",
+		bsmodal: "../extends/bsmodal/bsmodal"
+	}
+})
+
+//并注入对应依赖，当依赖都请求成功后执行对应的回调函数
+require(["jquery", "text", "bsheader", "bsmain", "bsfooter"], function($, text, bsheader, bsmain, bsfooter) {
+	console.log(text);
+	$("bsheader").bsheader();
+	$("bsmain").bsmain();
+	$("bsfooter").bsfooter();
+});
+```
+
+然后我们就可以在组件中这样引入css和html文件了，注意要先插入html到页面再绑定事件，不然事件会失效，并且引入html和css文件时候要记得这样引入`text!./bsfooter.html`text!加上文件路径的名字
+
+```js
+define(["jquery","text!./bsfooter.html","text!./bsfooter.css"],
+	function($,html) {
+		var html = html;
+		return $.fn.extend({
+			bsfooter: function(option) {
+				return this.each(function() {
+					$(this).html(html);
+				});
+			}
+		});
+	}
+)
+```
+
