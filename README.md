@@ -268,7 +268,7 @@ function fun4() {
 ```
 上面我们就可以用exports方法分别把wsscats3和wsscat4里面的对象和方法暴露出来了
 
-##init(非AMD写法的兼容)导入多个变量
+## init(非AMD写法的兼容)导入多个变量
 
 ```js
 e: {
