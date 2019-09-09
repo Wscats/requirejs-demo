@@ -17,13 +17,13 @@
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<script type="text/javascript" src="js/require.js"></script>
-		<script type="text/javascript" src="js/a.js" ></script>
-	</head>
-	<body>
-		<p>wsscat</p>
-	</body>
+<head>
+    <script type="text/javascript" src="js/require.js"></script>
+    <script type="text/javascript" src="js/a.js"></script>
+</head>
+<body>
+    <p>wsscat</p>
+</body>
 </html>
 ```
 传统方法引入可以看到会先弹出alert，内容被阻塞没有渲染
@@ -31,10 +31,9 @@
 **a.js**
 
 ```js
-function cat(){
-   alert("hello");
+function cat() {
+    alert("hello");
 }
-
 cat();
 ```
 
@@ -44,26 +43,25 @@ cat();
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-		<script type="text/javascript" src="js/require.js"></script>
-		<script>
-			require(["js/a"]);
-		</script>
-	</head>
-	<body>
-		<p>wsscat</p>
-	</body>
+<head>
+    <script type="text/javascript" src="js/require.js"></script>
+    <script>
+        require(["js/a"]);
+    </script>
+</head>
+<body>
+    <p>wsscat</p>
+</body>
 </html>
 ```
 
 **a.js**
 
 ```js
-define(function(){
-    function cat(){
-      alert("hello");
+define(function () {
+    function cat() {
+        alert("hello");
     }
-
     cat();
 })
 ```
@@ -83,10 +81,10 @@ require(["js/a"]);
 
 ```js
 require.config({
-	paths:{
-		"jq":["http://wsa.wsscat.com/jquery","js/jquery"],
-		"a":"js/wsscat"
-	}
+    paths: {
+        "jq": ["http://wsa.wsscat.com/jquery", "js/jquery"],
+        "a": "js/wsscat"
+    }
 })
 ```
 注意加载模块时不用写.js后缀，写了会报错
@@ -94,7 +92,7 @@ require.config({
 
 ```html
 <script type="text/javascript" src="js/require.js"></script>
-<script type="text/javascript" src="js/base.js" ></script>
+<script type="text/javascript" src="js/base.js"></script>
 ```
 ##path属性
 用paths还有一个好处就是让我们配置多个路径去加载js，当我们请求第一个路径不成功时候，可以继续往后面请求第二个js路径代替
@@ -109,14 +107,14 @@ require.config({
 **base.js**
 ```js
 require.config({
-	baseUrl:'js',
-	paths:{
-		jq:["http://wsa.wsscat.com/jquery","jquery"],
-		a:"wsscat"
-	}
+    baseUrl: 'js',
+    paths: {
+        jq: ["http://wsa.wsscat.com/jquery", "jquery"],
+        a: "wsscat"
+    }
 })
-require(["jq","a"],function(){
-	$('span').css('color','#673AB7');
+require(["jq", "a"], function () {
+    $('span').css('color', '#673AB7');
 });
 ```
 可以看到已经成功加载到我们所需要的依赖了
@@ -128,34 +126,34 @@ RequireJS的模块语法允许它尽快地加载多个模块，虽然加载的�
 **wsscat.js**
 ```js
 define(
-	function() {
-		function fun1() {
-			alert("wsscat");
-		}
+    function () {
+        function fun1() {
+            alert("wsscat");
+        }
 
-		function fun2() {
-			alert("autumns");
-		}
-		return {
-			f1: fun1,
-			f2: fun2
-		}
-	}
+        function fun2() {
+            alert("autumns");
+        }
+        return {
+            f1: fun1,
+            f2: fun2
+        }
+    }
 )
 ```
 **base.js**
 ```js
 require.config({
-	baseUrl: 'js',
-	paths: {
-		jquery: ["http://wsa.wsscat.com/jquery", "jquery"],
-		a: "wsscat"
-	},
+    baseUrl: 'js',
+    paths: {
+        jquery: ["http://wsa.wsscat.com/jquery", "jquery"],
+        a: "wsscat"
+    },
 })
-require(["jquery", "a"], function($, a) {
-	console.log($('span'));
-	$('span').css('color', '#673AB7');
-	console.log(a);
+require(["jquery", "a"], function ($, a) {
+    console.log($('span'));
+    $('span').css('color', '#673AB7');
+    console.log(a);
 });
 ```
 然后注入a的JS，并依赖此服务，是输出a，就能看到我们刚才模块给的对象里面的两个函数
@@ -168,39 +166,39 @@ require(["jquery", "a"], function($, a) {
 
 ```js
 define(['wsscat2'],
-	function(wsscat2) {
-		function fun1() {
-			alert("wsscat");
-		}
+    function (wsscat2) {
+        function fun1() {
+            alert("wsscat");
+        }
 
-		function fun2() {
-			alert("autumns");
-		}
-		
-		return {
-			f1:fun1,
-			f2:fun2,
-			f3:wsscat2.f1
-		}
-	}
+        function fun2() {
+            alert("autumns");
+        }
+
+        return {
+            f1: fun1,
+            f2: fun2,
+            f3: wsscat2.f1
+        }
+    }
 )
 ```
 **wsscat2.js**
 ```js
 define(
-	function() {
-		function fun1() {
-			return "wsscat2.js's wsscat";
-		}
+    function () {
+        function fun1() {
+            return "wsscat2.js's wsscat";
+        }
 
-		function fun2() {
-			return "wsscat2.js's autumns";
-		}
-		return {
-			f1:fun1,
-			f2:fun2
-		}
-	}
+        function fun2() {
+            return "wsscat2.js's autumns";
+        }
+        return {
+            f1: fun1,
+            f2: fun2
+        }
+    }
 )
 ```
 上面我们就完成了wsscat这个模块依赖了wsscat2模块，然后再次输出新的对象方法
@@ -211,63 +209,63 @@ define(
 **base.js**
 ```js
 require.config({
-	//可以把下面共同指向js文件夹写在这个位置
-	baseUrl: 'js',
-	//path可以让我省略冗长的地址信息
-	paths: {
-		//可以配置多个路径，当js请求不成功，可以有备选路径
-		jquery: ["http://wsa.wsscat.com/jquery", "jquery"],
-		//define中再依赖其他模块
-		a: "wsscat",
-		//define遵从AMD的写法
-		b: "wsscat2",
-		//export一个对象
-		c: "wsscat3",
-		//export一个函数
-		d: "wsscat4"
-	},
-	//非AMD规范时候的兼容写法
-	//export暴露出对应的对象和方法
-	shim: {
-		c: {
-			//导出对象
-			exports: "obj",
-		},
-		d: {
-			//导出方法
-			exports: "fun4"
-		}
-	}
+    //可以把下面共同指向js文件夹写在这个位置
+    baseUrl: 'js',
+    //path可以让我省略冗长的地址信息
+    paths: {
+        //可以配置多个路径，当js请求不成功，可以有备选路径
+        jquery: ["http://wsa.wsscat.com/jquery", "jquery"],
+        //define中再依赖其他模块
+        a: "wsscat",
+        //define遵从AMD的写法
+        b: "wsscat2",
+        //export一个对象
+        c: "wsscat3",
+        //export一个函数
+        d: "wsscat4"
+    },
+    //非AMD规范时候的兼容写法
+    //export暴露出对应的对象和方法
+    shim: {
+        c: {
+            //导出对象
+            exports: "obj",
+        },
+        d: {
+            //导出方法
+            exports: "fun4"
+        }
+    }
 })
 //注入对应依赖，当依赖都请求成功后执行对应的回调函数
-require(["jquery", "a", "c", "d"], function($, a, c, d) {
-	console.log($('span'));
-	$('span').css('color', '#673AB7');
-	console.log(a.f3());
-	console.log(c);
-	console.log(d);
+require(["jquery", "a", "c", "d"], function ($, a, c, d) {
+    console.log($('span'));
+    $('span').css('color', '#673AB7');
+    console.log(a.f3());
+    console.log(c);
+    console.log(d);
 });
 ```
 wsscat3.js
 
 ```js
 function fun1() {
-	return "wsscat3.js's wsscat";
+    return "wsscat3.js's wsscat";
 }
 
 function fun2() {
-	return "wsscat3.js's autumns";
+    return "wsscat3.js's autumns";
 }
 var obj = {
-	f1: fun1,
-	f2: fun2
+    f1: fun1,
+    f2: fun2
 }
 ```
 wsscat4
 
 ```js
 function fun4() {
-	return "wsscat4.js's wsscat";
+    return "wsscat4.js's wsscat";
 }
 ```
 上面我们就可以用exports方法分别把wsscats3和wsscat4里面的对象和方法暴露出来了
@@ -276,12 +274,12 @@ function fun4() {
 
 ```js
 e: {
-	init: function() {
-		return {
-			fun5: fun5,
-			fun6: fun6
-		}
-	}
+    init: function() {
+        return {
+            fun5: fun5,
+            fun6: fun6
+        }
+    }
 }
 ```
 我们可以用init方法来导入多个变量，比shim属性导入单个零活，注意return里面的属性值是没有双引号的
@@ -300,40 +298,39 @@ npm install requirejs/text
 
 ```js
 require.config({
-	baseUrl: 'js',
-	paths: {
-		text: ["text"],//<-添加这一个模块
-		jquery: ["jquery"],
-		bsheader: "../extends/bsheader/bsheader",
-		bsmain: "../extends/bsmain/bsmain",
-		bsfooter: "../extends/bsfooter/bsfooter",
-		bsmodal: "../extends/bsmodal/bsmodal"
-	}
+    baseUrl: 'js',
+    paths: {
+        text: ["text"],//<-添加这一个模块
+        jquery: ["jquery"],
+        bsheader: "../extends/bsheader/bsheader",
+        bsmain: "../extends/bsmain/bsmain",
+        bsfooter: "../extends/bsfooter/bsfooter",
+        bsmodal: "../extends/bsmodal/bsmodal"
+    }
 })
 
 //并注入对应依赖，当依赖都请求成功后执行对应的回调函数
-require(["jquery", "text", "bsheader", "bsmain", "bsfooter"], function($, text, bsheader, bsmain, bsfooter) {
-	console.log(text);
-	$("bsheader").bsheader();
-	$("bsmain").bsmain();
-	$("bsfooter").bsfooter();
+require(["jquery", "text", "bsheader", "bsmain", "bsfooter"], function ($, text, bsheader, bsmain, bsfooter) {
+    console.log(text);
+    $("bsheader").bsheader();
+    $("bsmain").bsmain();
+    $("bsfooter").bsfooter();
 });
 ```
 
 然后我们就可以在组件中这样引入css和html文件了，注意要先插入html到页面再绑定事件，不然事件会失效，并且引入html和css文件时候要记得这样引入`text!./bsfooter.html`text!加上文件路径的名字
 
 ```js
-define(["jquery","text!./bsfooter.html","text!./bsfooter.css"],
-	function($,html) {
-		var html = html;
-		return $.fn.extend({
-			bsfooter: function(option) {
-				return this.each(function() {
-					$(this).html(html);
-				});
-			}
-		});
-	}
+define(["jquery", "text!./bsfooter.html", "text!./bsfooter.css"],
+    function ($, html) {
+        var html = html;
+        return $.fn.extend({
+            bsfooter: function (option) {
+                return this.each(function () {
+                    $(this).html(html);
+                });
+            }
+        });
+    }
 )
 ```
-
