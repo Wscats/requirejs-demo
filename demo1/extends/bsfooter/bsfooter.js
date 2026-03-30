@@ -1,6 +1,8 @@
+'use strict';
+
 define(["jquery","text!./bsfooter.html","text!./bsfooter.css"],
 	function($,html) {
-		var html = html;
+		const html = html;
 		return $.fn.extend({
 			bsfooter: function(option) {
 				return this.each(function() {

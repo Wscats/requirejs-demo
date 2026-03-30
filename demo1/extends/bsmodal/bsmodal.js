@@ -1,6 +1,8 @@
+'use strict';
+
 define(["jquery"],
 	function($) {
-		var html = `
+		const html = `
 			<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: block; padding-right: 17px;">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -34,7 +36,7 @@ define(["jquery"],
 			//js
 			bsmodal: function(option) {
 				return this.each(function() {
-					var bsmodal = $(this);
+					const bsmodal = $(this);
 					bsmodal.html(html);
 				});
 			}

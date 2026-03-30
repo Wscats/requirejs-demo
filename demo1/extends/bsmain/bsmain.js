@@ -1,6 +1,8 @@
+'use strict';
+
 define(["jquery", "bsmodal"],
 	function($, bsmodal) {
-		var html = `
+		const html = `
 			<main role="main">
 				<section class="jumbotron text-center">
 					<div class="container">
@@ -162,7 +164,7 @@ define(["jquery", "bsmodal"],
 			bsmain: function(option) {
 				$("bsmodal").bsmodal().hide();
 				return this.each(function() {
-					var bsmain = $(this);
+					const bsmain = $(this);
 					bsmain.html(html);
 					bsmain.find("#login").click(function(){
 						$("bsmodal").toggle();

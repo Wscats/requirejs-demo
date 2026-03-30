@@ -1,3 +1,5 @@
+'use strict';
+
 define(['wsscat2'],
 	function(wsscat2) {
 		function fun1() {

@@ -1,3 +1,5 @@
+'use strict';
+
 function fun1() {
 	return "wsscat3.js's wsscat";
 }
@@ -5,7 +7,7 @@ function fun1() {
 function fun2() {
 	return "wsscat3.js's autumns";
 }
-var obj = {
+const obj = {
 	f1: fun1,
 	f2: fun2
 }

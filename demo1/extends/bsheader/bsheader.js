@@ -1,6 +1,8 @@
+'use strict';
+
 define(["jquery"],
 	function($) {
-		var html = `
+		const html = `
 			<header>
 				<div class="collapse bg-dark" id="navbarHeader">
 					<div class="container">
@@ -46,7 +48,7 @@ define(["jquery"],
 			//js
 			bsheader: function(option) {
 				return this.each(function() {
-					var bsheader = $(this);
+					const bsheader = $(this);
 					bsheader.html(html);
 					bsheader.find(".navbar-toggler").click(function() {
 						bsheader.find("#navbarHeader").toggle(500);

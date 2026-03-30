@@ -48,7 +48,7 @@ define(['module'], function (module) {
             //is an HTML document, only the part inside the body tag is returned.
             if (content) {
                 content = content.replace(xmlRegExp, "");
-                var matches = content.match(bodyRegExp);
+                const matches = content.match(bodyRegExp);
                 if (matches) {
                     content = matches[1];
                 }
@@ -186,7 +186,7 @@ define(['module'], function (module) {
 
             masterConfig.isBuild = config && config.isBuild;
 
-            var parsed = text.parseName(name),
+            let parsed = text.parseName(name),
                 nonStripName = parsed.moduleName +
                     (parsed.ext ? '.' + parsed.ext : ''),
                 url = req.toUrl(nonStripName),
@@ -222,7 +222,7 @@ define(['module'], function (module) {
 
         write: function (pluginName, moduleName, write, config) {
             if (buildMap.hasOwnProperty(moduleName)) {
-                var content = text.jsEscape(buildMap[moduleName]);
+                let content = text.jsEscape(buildMap[moduleName]);
                 write.asModule(pluginName + "!" + moduleName,
                                "define(function () { return '" +
                                    content +
@@ -231,7 +231,7 @@ define(['module'], function (module) {
         },
 
         writeFile: function (pluginName, moduleName, req, write, config) {
-            var parsed = text.parseName(moduleName),
+            const parsed = text.parseName(moduleName),
                 extPart = parsed.ext ? '.' + parsed.ext : '',
                 nonStripName = parsed.moduleName + extPart,
                 //Use a '.js' file name so that it indicates it is a
@@ -245,7 +245,7 @@ define(['module'], function (module) {
                 //Use own write() method to construct full module value.
                 //But need to create shell that translates writeFile's
                 //write() to the right interface.
-                var textWrite = function (contents) {
+                const textWrite = function (contents) {
                     return write(fileName, contents);
                 };
                 textWrite.asModule = function (moduleName, contents) {
@@ -268,7 +268,7 @@ define(['module'], function (module) {
 
         text.get = function (url, callback, errback) {
             try {
-                var file = fs.readFileSync(url, 'utf8');
+                let file = fs.readFileSync(url, 'utf8');
                 //Remove BOM (Byte Mark Order) from utf8 files if it is there.
                 if (file[0] === '\uFEFF') {
                     file = file.substring(1);
@@ -283,7 +283,7 @@ define(['module'], function (module) {
     } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
             text.createXhr())) {
         text.get = function (url, callback, errback, headers) {
-            var xhr = text.createXhr(), header;
+            let xhr = text.createXhr(), header;
             xhr.open('GET', url, true);
 
             //Allow plugins direct access to xhr headers

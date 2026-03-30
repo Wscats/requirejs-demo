@@ -1,3 +1,5 @@
+'use strict';
+
 require.config({
 	//可以把下面共同指向js文件夹写在这个位置
 	baseUrl: 'js',

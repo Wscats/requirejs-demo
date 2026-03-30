@@ -1,3 +1,5 @@
+'use strict';
+
 function fun5() {
 	return "wsscat5.js's wsscat";
 }
